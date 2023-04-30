@@ -133,9 +133,9 @@ func (s *Signature) sign(key string, r *http.Request) error {
 
 // IsValid validates this signature for the given key
 func (s Signature) IsValid(key string, r *http.Request) bool {
-	if !s.Headers.hasDate() {
-		return false
-	}
+	//if !s.Headers.hasDate() {
+	//	return false
+	//}
 
 	sig, err := s.calculateSignature(key, r)
 	if err != nil {
