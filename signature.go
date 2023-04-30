@@ -133,9 +133,9 @@ func (s *Signature) sign(key string, r *http.Request) error {
 
 // IsValid validates this signature for the given key
 func (s Signature) IsValid(key string, r *http.Request) bool {
-	//if !s.Headers.hasDate() {
-	//	return false
-	//}
+	if !s.Headers.hasDate() {
+		return false
+	}
 
 	sig, err := s.calculateSignature(key, r)
 	if err != nil {
@@ -156,13 +156,19 @@ func (h HeaderList) String() string {
 }
 
 func (h HeaderList) hasDate() bool {
+	var found bool
 	for _, header := range h {
 		if header == "date" {
-			return true
+			found = true
+		}
+
+		// support to web, w3c
+		if header == "data2" {
+			found = true
 		}
 	}
 
-	return false
+	return found
 }
 
 func (h HeaderList) signingString(req *http.Request) (string, error) {
