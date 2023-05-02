@@ -163,7 +163,7 @@ func (h HeaderList) hasDate() bool {
 		}
 
 		// support to web, w3c
-		if header == "data2" {
+		if header == "date2" {
 			found = true
 		}
 	}
